@@ -1,0 +1,21 @@
+Test Dictionary
+---------------
+Simple wrapper around copyright-free dictionary. Useful for creating semi-realistic test or staging data.
+
+Usage:
+Add dictionary.jar to your classpath.
+	String word = Dictionary.getRandomWord();
+	String word = Dictionary.getRandomWordTermCommonNameOrConnector();
+	String word = Dictionary.getRandomProperName();
+	boolean exists = Dictionary.lookup("coffee");
+	
+Build:
+Install Ant.
+	ant
+This will create dictionary.jar
+
+Relase Notes
+------------
+1.0.0 Initial release
+
+Moved to Github

@@ -1,0 +1,51 @@
+<project name="dictionary" default="jar" basedir=".">
+
+  <target name="prepare">
+    <mkdir  dir="build"/>
+    <mkdir  dir="build/classes"/>
+  </target>
+
+
+  <target name="clean" description="remove all generated files">
+    <delete dir="build"/>
+  </target>
+
+
+  <target name="compile" depends="prepare">
+    <javac destdir="build/classes" target="1.4" source="1.4" debug="true" includeantruntime="true">
+      <src path="src"/>
+      <compilerarg value="-Xlint"/>
+    </javac>
+    <copy todir="build/classes">
+      <fileset dir="src/prod">
+        <exclude name="**/*.java"/>
+      </fileset>
+      <fileset dir=".">
+        <include name="LICENSE"/>
+        <include name="README"/>
+      </fileset>
+    </copy>
+  </target>
+
+
+  <target name="test" depends="compile">
+    <junit haltonfailure="true" showoutput="yes" printsummary="yes">
+      <batchtest>
+        <fileset dir="src/test">
+          <include name="**/*TestCase.java"/>
+        </fileset>
+        <formatter type="plain" usefile="false"/>
+      </batchtest>
+      <classpath>
+        <pathelement path="build/classes"/>
+        <pathelement location="lib/junit.jar"/>
+      </classpath>
+    </junit>
+  </target>
+
+
+  <target name="jar" depends="clean,test">
+    <jar basedir="build/classes" destfile="dictionary.jar" excludes="**/*TestCase.*"/>
+  </target>
+
+</project>
